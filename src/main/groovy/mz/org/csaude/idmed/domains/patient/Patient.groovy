@@ -1,14 +1,17 @@
 package mz.org.csaude.idmed.domains.patient
-
 import io.micronaut.serde.annotation.Serdeable
 import jakarta.annotation.Nullable
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
+import jakarta.persistence.FetchType
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.ManyToOne
+import jakarta.persistence.OneToMany
+import jakarta.persistence.Temporal
+import jakarta.persistence.TemporalType
 import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.PastOrPresent
 import jakarta.validation.constraints.Pattern
@@ -18,8 +21,8 @@ import mz.org.csaude.idmed.domains.distribuicaoAdministrativa.District
 import mz.org.csaude.idmed.domains.distribuicaoAdministrativa.Province
 import mz.org.csaude.idmed.domains.healthInformationSystem.HealthInformationSystem
 import mz.org.csaude.idmed.domains.localidade.Localidade
+import mz.org.csaude.idmed.domains.patientIdentifier.PatientServiceIdentifier
 import mz.org.csaude.idmed.domains.postoAdministrativo.PostoAdministrativo
-
 import java.time.LocalDateTime
 
 @Entity(name = "Patient")
@@ -42,9 +45,10 @@ class Patient {
     @Column(name = "gender")
     String gender
 
+    @Temporal(TemporalType.TIMESTAMP)
     @PastOrPresent
     @Column(name = "date_of_birth", nullable = false)
-    Date dateOfBirth
+    LocalDateTime dateOfBirth
 
     @Nullable
     @Pattern(regexp = "\\d{9,12}")
@@ -87,8 +91,8 @@ class Patient {
 
     @Nullable
     @ManyToOne(optional = false)
-    @JoinColumn(name = "licalidade_id")
-    Localidade bairro
+    @JoinColumn(name = "localidade_id")
+    Localidade localidade
 
     @Nullable
     @ManyToOne(optional = false)
@@ -116,4 +120,8 @@ class Patient {
 
     @Column(name = "match_id", nullable = false)
     Long matchId
+
+    @NotNull
+    @OneToMany(mappedBy="patient", fetch = FetchType.EAGER)
+    private Set<PatientServiceIdentifier> identifiers
 }
