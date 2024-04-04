@@ -13,7 +13,7 @@ interface PatientRepository extends CrudRepository<Patient, String> {
 
     Optional<Patient> findById(@NotNull String id)
 
-    List<Patient> search (Patient patient)
+    /*List<Patient> search (Patient patient)
 
     List<Patient> search(String searchString, String clinicId)
 
@@ -21,5 +21,5 @@ interface PatientRepository extends CrudRepository<Patient, String> {
 
     List<Patient> getAllByClinicId(String clinicId, int offset, int max)
 
-    List<Patient> getAllPatientsInClinicSector(ClinicSector clinicSector)
+    List<Patient> getAllPatientsInClinicSector(ClinicSector clinicSector)*/
 }

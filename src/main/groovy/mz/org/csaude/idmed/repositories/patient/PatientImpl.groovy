@@ -20,7 +20,7 @@ abstract class PatientImpl implements PatientRepository{
         return null
     }
 
-    @Override
+  /*  @Override
     List<Patient> search(@NotNull Patient patient) {
             boolean hasIdentifier = Utilities.listHasElements(patient.identifiers as ArrayList<?>)
             String mainQuery =  "select p from Patient p " +
@@ -73,5 +73,5 @@ abstract class PatientImpl implements PatientRepository{
     @Override
     List<Patient> getAllPatientsInClinicSector(@NotNull ClinicSector clinicSector) {
 
-    }
+    }*/
 }
